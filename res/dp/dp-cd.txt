@@ -1,0 +1,3 @@
+Category	SAP Code	Model Name	Channel	Capacity	MRP	DP	MOP	Colour
+Cloth Dryer	8903287000676	TURBO DRY	All Channel	5.5	27790	24690	22700	White
+Cloth Dryer	8903287000669	TURBO DRY EX	All Channel	5.5	29090	25990	23990	Rich Silver

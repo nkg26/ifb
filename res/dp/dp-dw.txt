@@ -1,0 +1,5 @@
+Category	SAP Code	Model Name	Channel	Capacity	MRP	DP	MOP	Colour	UI
+Dishwasher	8903287040306	NEPTUNE SX16	All Channel	16 Plates	74990	66990	59690	-	Deep Clean Dishwasher Powered by Ai
+Dishwasher	8903287040290	NEPTUNE VX16	All Channel	16 Plates	69990	63990	56990	-	DeepClean Dishwasher Powered by Ai
+Dishwasher	8903287040474	NEPTUNE VX15	All Channel	15 Plates	58490	55990	49890	-	Deep Clean Dishwasher
+Dishwasher	8903287040450	NEPTUNE VX14	All Channel	14 Plates	54990	49990	44490	-	Deep Clean Dishwasher
