@@ -105,10 +105,6 @@
 		}
 	}
 	
-	//let openInFreas
-	const RN = Math.floor(Math.random()*10000);
-	const Append_RN_TXT = '?rnd='+RN;
-		
 	function goToPage() {
 			// this will auto append random id to fetch latest data..
 			
@@ -117,7 +113,7 @@
             if (selectedValue) {
                 // window.location.href = selectedValue; // Opens the link in the same tab
                 // window.open(selectedValue, '_blank'); // Use this instead if you want to open in a new tab:
-				MY_ITEM.loadAndShowFileData(selectedValue+Append_RN_TXT);
+				read_and_show_file(selectedValue);
             } else {
                 alert("Please select a valid option first!");
             }
@@ -144,7 +140,14 @@
 	<div id="productGrid"></div>
 	
   <script>  
+	//let openInFreas
+	const RN = Math.floor(Math.random()*10000);
+	const Append_RN_TXT = '?rnd='+RN;
+		
 	const MY_TABLE = new PlainTable();
+	function read_and_show_file(url){ 
+		MY_TABLE.loadAndShowFileData(url+Append_RN_TXT);
+	}
   
 	function show_filtered_products(){ 
 		var val = document.getElementById('searchInput').value;
