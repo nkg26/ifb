@@ -22,4 +22,35 @@ class IFB{
   path_dp_ka    = "/res/dp/dp-ka.txt";
   path_list_dp_all = [this.path_dp_wm_tl, this.path_dp_wm_fl, this.path_dp_ref, this.path_dp_ac, this.path_dp_mov, this.path_dp_dw, this.path_dp_cd, this.path_dp_ka];
 
+  fullPath(relativePath){
+    return this.ROOT + relativePath;
+  }
+}
+
+class IFB_IMG{
+  ROOT = "https://nkg26.github.io/ifb";
+  
+  getImgPathByName(name){
+    retrun null;
+  }
+
+  getGeneralImgPathByCatName(name){
+    const N = name.toLowerCase();
+    const R = this.ROOT+ "\res\img";
+    
+    if(N === 'ac') return R+"\general\ac-split.webp";
+    if(N === 'dw') return R+"\general\dw.webp";
+    if(N === 'ref') return R+"\general\ref-1.webp";
+    if(N === 'wm-fl') return R+"\general\wm-fl.webp";
+    if(N === 'wm-tl') return R+"\general\wm-tl.webp";
+    if(N === 'mov') return R+"\general\oven.webp";
+    if(N === 'mow') return R+"\general\oven.webp";
+    if(N === 'cd') return R+"\general\cd.webp";
+    if(N === 'chimani') return R+"\general\chimani.webp";
+    
+    
+    
+    retrun null;
+  }
+  
 }
