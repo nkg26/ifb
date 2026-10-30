@@ -10,6 +10,6 @@ class IFB{
   path_features_ka    = "/res/features/features-ka.txt";
 
 
-  path_features_all = [path_features_wm_tl,path_features_wm_fl,path_features_ref,path_features_ac,path_features_mov,path_features_dw,path_features_cd,path_features_ka];
+  path_features_all = [this.path_features_wm_tl, this.path_features_wm_fl, this.path_features_ref, this.path_features_ac, this.path_features_mov, this.path_features_dw, this.path_features_cd, this.path_features_ka];
 
 }
