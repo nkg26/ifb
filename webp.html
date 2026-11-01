@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webp</title>
+</head>
+<body>
+<style>img{border:2px solid black; max-height:500px; padding:5px; margin:5px; }</style>
+<style>body{background:none; background-color:gray; }</style>
+<style>div.webp{overflow:auto; max-height:90vh;}</style>
+
+		<div style="display:block;"> Webp images </div>
+		<div class="webp" id="images"></div>
+  </div>
+
+  <script>
+let html='';	
+  for(let i=1;i<14;i++){
+	let url = "/res/tmp-webp-01/"+(i<10?"0":"")+i+".webp";
+	html += `<img src='${url}' />`;
+  }
+  document.getElementById('images').innerHTML=html;
+</script>
+
+</body>
+
+</html>
