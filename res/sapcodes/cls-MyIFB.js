@@ -131,6 +131,10 @@ new MyIFB().loadData(); // this will auto call user custom function start_with_i
 					S = S.includes("Finish Name".toLowerCase())?"color":S; // ref
 					S = S.includes("Color / Finish".toLowerCase())?"color":S;
 					S = S.includes("MRP".toLowerCase())?"mrp":S;
+					S = S.includes("Cap".toLowerCase())?"capacity":S;
+					S = S.includes("Capacity".toLowerCase())?"capacity":S;
+
+					
 /*					
 					S = S.includes("?????".toLowerCase())?"offerPrice":S;
 					S = S.includes("?????".toLowerCase())?"advance":S;
