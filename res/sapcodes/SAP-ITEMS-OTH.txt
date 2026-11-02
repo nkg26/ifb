@@ -1,5 +1,5 @@
 CAT	Category	Model Name	SAP Code	CAP	Star	Features	Color / Finish
-CD	Cloth Dryer	TURBO DRY	8903287000676	5.5			White
+CD	Cloth Dryer	TURBO DRY	8903287000676	5.5			White 
 CD	Cloth Dryer	TURBO DRY EX	8903287000669	5.5			Rich Silver
 DW	Dishwasher	NEPTUNE SX16	8903287040306	16 Place		Deep Clean Dishwasher Powered by Ai	
 DW	Dishwasher	NEPTUNE VX14	8903287040450	14 Place		Deep Clean Dishwasher	
