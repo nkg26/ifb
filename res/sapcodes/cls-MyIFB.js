@@ -45,6 +45,14 @@ new MyIFB().loadData(); // this will auto call user custom function start_with_i
 				});
 			}
 
+			// agar list item ki value me specified value exist karti hai.
+			filterByValue_LC_NOT(pList, KEY, INCLUDES_VALUE){
+				INCLUDES_VALUE = INCLUDES_VALUE.toLowerCase();
+				return pList.filter(item => {
+					return !((item[KEY] !== undefined) && item[KEY].toLowerCase().includes(INCLUDES_VALUE));
+				});
+			}
+
 			findPList(KEY, VALUE){
 				return this.filterByValue_LC(this.DATA_P, KEY, VALUE);
 			}
