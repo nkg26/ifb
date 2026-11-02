@@ -1,9 +1,11 @@
 /*
 how to use...
-    <script src="https://nkg26.github.io/libs/js/cls-IO.js"></script>	
-    <script src="https://nkg26.github.io/libs/js/cls-MyTable.js"></script>	
 
-	new MyIFB().loadData(); // this will auto call user custom function start_with_items(items)
+<script src="https://nkg26.github.io/libs/js/cls-IO.js"></script>	
+<script src="https://nkg26.github.io/libs/js/cls-MyTable.js"></script>	
+<script src="https://nkg26.github.io/ifb/res/sapcodes/cls-MyIFB.js"></script>	
+
+new MyIFB().loadData(); // this will auto call user custom function start_with_items(items)
   
   // this function will auto call once all data is read by MyIFB class...
 	function start_with_items(items){
