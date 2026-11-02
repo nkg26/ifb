@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI IFB Table - 2026-11-02</title>
+</head>
+<body>
+	<style>body{background: linear-gradient(90deg,rgba(207, 62, 14, 0.2) 0%, rgba(20, 9, 121, 0.2) 50%, rgba(27, 194, 194, 0.2) 100%);}</style>
+	<style>input#searchInput{width:98%; margin:5px; padding:5px;}</style>
+	<style>.selected_cat_button{background-color:cyan;} </style>
+	<style>.cat-btn{background-color:yellow; border:1px solid red; padding:2px 3px; margin:3px 5px; border-radius:10px; min-width:35px;} </style>
+	<style>.cat-btn:hover, .selected_cat_button:hover{background-color:orange; } </style>
+
+    <div id="header-placeholder">AI - IFB Products - 2026-11-02</div>
+    <div id="module-items">
+		<main id="items-bag">
+		    <!-- Search and Filter Bar -->
+		    <div id="search-div">
+		        <div id="search-box">
+		            <input type="text" id="searchInput" onkeyup="filterTextUpdated()" placeholder="🔍 Search by model name or category (e.g. Elena, 8 Kg)...">
+		        </div>
+		        <div id="search-category"></div>
+		    </div>
+		    <div id="message"></div> 
+		    <!-- Product Cards Container -->
+		    <div id="productGrid"></div>
+		</main>
+		
+	</div>
+    <div id="footer-placeholder"></div>
+
+    <script src="https://nkg26.github.io/libs/js/cls-IO.js"></script>	
+    <script src="https://nkg26.github.io/libs/js/cls-MyTable.js"></script>	
+    <script src="https://nkg26.github.io/ifb/res/sapcodes/cls-MyIFB.js"></script>	
+	
+    <script>  
+	let products = [];
+	let mfb = new MyIFB();
+
+	var cat_btn_cls_selected   = "cat-btn selected"; // example
+	var cat_btn_cls_unselected = "cat-btn uns";  // example
+	var cat_btn_cls = "cat-btn";
+
+	mfb.loadData();
+	function start_with_items(items){
+		products = items;		
+		_start_this();
+	}
+
+	class PFilter{
+	
+		safeLocaleString(value, defaultValue='') {
+			if(value!==null){ try{return value.toLocaleString('en-IN');}catch{}	}
+			return defaultValue;
+		}
+
+		safeNumber(value, defaultValue=0) {
+			if(value!==null){ try{return value*1;}catch{}	}
+			return defaultValue;
+		}
+
+		safeVal(value, defaultValue='') {
+			return (value!==null && value !== undefined)?value:defaultValue;
+			//     return value ?? defaultValue; // shorter expression..
+		}	
+
+		updateCategoryButtonsClass(cat_key, new_cat, unselected){
+			  document.querySelectorAll('.'+cat_key).forEach(btn => {btn.className = unselected;});
+			  try{event.target.className = new_cat; }catch{}  // update seleced class
+			  try{this.style.className = new_cat; }catch{}  // update seleced class
+		}
+		
+		filterByValue(pList, PROP_KEY, PROP_VALUE){
+			PROP_VALUE = PROP_VALUE.toLowerCase();
+			return pList.filter(item => {
+				return ((item[PROP_KEY] !== undefined) && item[PROP_KEY].toLowerCase().includes(PROP_VALUE));
+			});
+		}
+		
+		filterByCategory(ITEMS, cat) {
+			cat = (cat===null || cat==="" ?"ALL":cat);
+			return cat ==="ALL"?ITEMS: this.filterByValue(ITEMS, "category", cat); 
+		}
+	
+		getUniqueCategory(itemsList) {
+			if(itemsList){
+				const uniqueCategories = [...new Set(itemsList.map(item => item.category))];
+				return uniqueCategories;
+			}
+			return [];
+		}
+
+		filterByText(pList, text){
+			if(!text || text.trim().length===0) return pList;
+			text = text.toLowerCase();
+			
+			return pList.filter(item => {
+				let PROP_KEY;
+				let b1    = ((item[PROP_KEY = "category"] !== undefined) && item[PROP_KEY].toLowerCase().includes(text));
+				b1 = b1 || ((item[PROP_KEY = "name"] !== undefined) && item[PROP_KEY].toLowerCase().includes(text));
+				return b1;
+			});
+		}
+		
+		createHTML_CategoryButtons(ITEMS){
+			// extract unique categories ...
+			var uniqueCategories = this.getUniqueCategory(ITEMS);
+			var html = `<button class='cat-btn' onclick="setCategory('ALL')">All</button> `;
+			uniqueCategories.forEach(item =>{ html += ` <button class='cat-btn' onclick="setCategory('${item}')">${item}</button> `;});
+			return html;
+		}
+	}
+
+	let FILTER = new PFilter();
+	let pFiltered = [];
+	
+	function setCategory(cat){
+		FILTER.updateCategoryButtonsClass(cat_btn_cls, cat_btn_cls_selected, cat_btn_cls_unselected);
+		pFiltered = FILTER.filterByCategory(products, cat);
+		render_and_show_items();
+	}
+
+	function filterTextUpdated(){
+		var box = document.getElementById('searchInput');
+		if(box) render_and_show_items();
+		else console.log(" no input search box found having id 'searchInput'.");
+	}
+		
+
+	function _start_this(){
+		document.getElementById("search-category").innerHTML = FILTER.createHTML_CategoryButtons(products);
+		setCategory(null);
+	}
+	
+	function render_and_show_items(){
+		let show = pFiltered;
+		var box = document.getElementById('searchInput');
+		show = FILTER.filterByText(show, box===null?null:box.value);
+		
+		let html = generate_all_items_HTML_VIEW(show);
+		document.getElementById("productGrid").innerHTML = html;
+	}
+
+	function generate_all_items_HTML_VIEW(filtered) {
+		document.getElementById('message').innerHTML = "";
+		if(filtered === null) 	return `<div> null data lisr....</div>`;
+		if(filtered.length === 0) return `<div>No appliances found matching your criteria.</div>`;
+		
+		document.getElementById('message').innerHTML = " > > " + filtered.length + " items found.";
+		
+		var css = `<style> 
+			div.items-div table.items_table td{
+				border:1px solid gray; padding:3px;
+			}
+			tbody tr:nth-child(odd) { background-color: #fff2f25; }
+			tbody tr:nth-child(even) { background-color: #fff7; }
+			div.items-div table.items_table thead tr th{
+				  position: sticky;   top: 0; background:pink;			padding:3px;
+			}
+			div.items-div{
+				max-height: 85vh; /* viewport ki height ka 50% */ 
+				overflow:auto; border:1px solid seagreen;
+			}
+		</style>	`;
+		
+		var mydata = ""+css;			
+		mydata += `<div class="items-div">`;
+		mydata += `<table border=true cellspacing=0 class="items_table" > <thead>`;
+		mydata += `<tr> <th>#</th> <th>SAP</th> <th>Cat</th> <th>Size/Cap</th> <th>Name</th> <th>Color</th> <th>MRP</th> <th>DP</th> <th>MOP</th> </tr>`;
+		mydata += `</thead> <tbody>`;
+		// ₹
+		var cnt = 0;
+		filtered.forEach(p => {
+			mydata += `<tr> 
+			<td class='col0'>${++cnt}</td>
+			<td class='col1'>${FILTER.safeVal(p.sapcode)}</td>
+			<td class='col1'>${FILTER.safeVal(p.category)}</td>
+			<td class='col2'>${FILTER.safeVal(p.capacity)}</td>
+			<td class='col3'>${FILTER.safeVal(p.name)}</td>
+			<td class='col4'>${FILTER.safeVal(p.color)}</td>
+			<td class='col5'>${FILTER.safeLocaleString(p.mrp)}</td>
+			<td class='col6'>${FILTER.safeLocaleString(p.dp)}</td>
+			<td class='col7'>${FILTER.safeLocaleString(p.mop)}</td>
+			</tr>`;
+		});
+
+		mydata += `</tbody></table> </div>`;
+		return mydata;
+	}
+
+		</script>
+	  
+</body></html>
