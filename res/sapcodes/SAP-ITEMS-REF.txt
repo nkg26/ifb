@@ -1,4 +1,4 @@
-Code	Description	Cap	Star	Finish Type	Finish Name
+SAP Code	Description	Cap	Star	Finish Type	Finish Name
 8903287712876	Metal-Cool IFBDC-213AFAS	187	1	Steel Finish	ANTHRACIE GREY
 8903287712906	Metal-Cool IFBDC-213AFBO	187	1		
 8903287712890	Metal-Cool IFBDC-213AFBW	187	1	Flower Pattern	WILD FLOWER BLUE
