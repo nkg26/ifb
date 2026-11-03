@@ -21,13 +21,14 @@ new MyIFB().loadData(); // this will auto call user custom function start_with_i
 	
 			DATA_P = [
 				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-ITEMS-AC.txt", 					OF:"SAP-ITM-AC", 			inCat:"ALL,AC"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-ITEMS-OTH.txt",	 				OF:"SAP-ITM-OTH", 		inCat:"ALL,OTH"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-ITEMS-REF.txt", 					OF:"SAP-ITM-REF", 			inCat:"ALL,REF"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP.txt", 			OF:"MRP-DP-ALL", 			inCat:"ALL"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP-REF.txt", 	OF:"MRP-DP-REF", 			inCat:"ALL,REF"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-Channels.txt", 		OF:"SAP-PLATEFORM", 	inCat:"ALL"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-NE.txt", 					OF:"SAP-NE", 					inCat:"ALL"},
-				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-POINT.txt", 			OF:"SAP-POINT", 			inCat:"ALL"}
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-ITEMS-OTH.txt",	 				OF:"SAP-ITM-OTH", 			inCat:"ALL,OTH"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-ITEMS-REF.txt", 				OF:"SAP-ITM-REF", 			inCat:"ALL,REF"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP-2611.txt", 		OF:"MRP-DP-ALL", 			inCat:"ALL"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP.txt", 				OF:"MRP-DP-ALL", 			inCat:"ALL"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP-REF.txt",	 		OF:"MRP-DP-REF", 			inCat:"ALL,REF"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-Channels.txt", 			OF:"SAP-PLATEFORM", 		inCat:"ALL"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-NE.txt", 					OF:"SAP-NE", 				inCat:"ALL"},
+				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-POINT.txt", 				OF:"SAP-POINT", 			inCat:"ALL"}
 			];
 			
 			// agar list item ki value me specified value exist karti hai.
