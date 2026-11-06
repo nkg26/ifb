@@ -1,4 +1,4 @@
-	class IFB_PRICE extends MyIFB_ABC2{
+	class IFB_PRICE extends MyIFB_ABC{
 		DATA_P = [
 				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP-2611.txt", 		OF:"MRP-DP-ALL", 			inCat:"ALL"},
 				{path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP.txt", 				OF:"MRP-DP-ALL", 			inCat:"ALL"},
