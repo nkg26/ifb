@@ -1,1 +1,305 @@
-hello user
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About IFB - Premium Edition</title>
+	<script src="https://nkg26.github.io/ifb/res/ad.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0f141c;
+            --card-bg: rgba(26, 33, 44, 0.85);
+            --gold-accent: #d4af37;
+            --gold-light: #f4d068;
+            --text-main: #e8ecf1;
+            --text-muted: #a0aec0;
+            --ad-bg: rgba(212, 175, 55, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 20px 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 📢 TOP AD BANNER ZONE */
+        .ad-banner-top {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(20, 26, 35, 0.9) 100%);
+            border: 1px dashed var(--gold-accent);
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .ad-badge {
+            position: absolute;
+            top: 6px;
+            right: 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-accent);
+            opacity: 0.8;
+        }
+
+        /* ROYAL HEADER */
+        .royal-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-logo {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #fff;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .brand-logo span {
+            color: var(--gold-accent);
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .divider-gold {
+            height: 3px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+            margin: 0 auto 20px auto;
+        }
+
+        .about-intro {
+            font-size: 16px;
+            color: var(--text-main);
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* SECTIONS GRID */
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-left: 4px solid var(--gold-accent);
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .section-title {
+            color: var(--gold-light);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-card ul {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .section-card ul li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 10px;
+        }
+
+        .section-card ul li::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: var(--gold-accent);
+            font-size: 12px;
+            top: 2px;
+        }
+
+        .section-card strong {
+            color: #ffffff;
+        }
+
+        /* 📢 INLINE PROMO / AD BANNER */
+        .ad-banner-inline {
+            background: linear-gradient(135deg, #2c2005 0%, #151a23 100%);
+            border: 1px solid var(--gold-accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .ad-btn {
+            background: linear-gradient(135deg, var(--gold-accent), #b89327);
+            color: #000;
+            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 40px;
+        }
+		.ad-banner-top{display:none:}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- 📢 AD PLACEMENT 1: TOP LEADERBOARD BANNER -->
+        <div class="ad-banner-top">
+            <span class="ad-badge">Sponsored Advertisement</span>
+            <p style="color: var(--gold-light); font-weight: 600;">⚡ Special Festival Offers on IFB Appliances!</p>
+            <p style="font-size: 13px; color: var(--text-muted);">Get up to 25% Off + Extended Warranty on Top Load Washing Machines & Microwave Ovens.</p>
+        </div>
+
+        <!-- HERO HEADER -->
+        <header class="royal-header">
+            <div class="brand-logo">IFB</div>
+            <div class="tagline">Set Yourself Free</div>
+            <div class="divider-gold"></div>
+            <h1 style="font-size: 26px; color: var(--gold-light); margin-bottom: 15px;">ABOUT IFB</h1>
+            <p class="about-intro">
+                <strong>IFB (Indian Fine Blanks)</strong> एक भारतीय ब्रांड है जो मुख्य रूप से घरेलू उपकरणों, विशेष रूप से वाशिंग मशीन, क्लोथ ड्रायर, डिशवॉशर, और एयर कंडीशनर के लिए जाना जाता है। यह कंपनी 1974 में स्थापित की गई थी और इसका मुख्यालय बेंगलुरु, भारत में स्थित है। IFB अपने उत्पादों की उच्च गुणवत्ता, तकनीकी नवाचार और विश्वसनीयता के लिए प्रसिद्ध है।
+            </p>
+        </header>
+
+        <!-- SECTION 1 -->
+        <div class="section-card">
+            <h2 class="section-title">1. कंपनी का इतिहास और पृष्ठभूमि</h2>
+            <ul>
+                <li><strong>स्थापना:</strong> 1974 में हुई।</li>
+                <li><strong>मुख्यालय:</strong> बेंगलुरु, भारत।</li>
+                <li><strong>संस्थापक:</strong> इंडियन फाइन ब्लैंक्स लिमिटेड (IFB) की स्थापना एक इंजीनियरिंग कंपनी के रूप में की गई थी, जो ऑटोमोबाइल और अन्य उद्योगों के लिए फाइन ब्लैंकिंग टेक्नोलॉजी पर केंद्रित थी।</li>
+                <li><strong>घरेलू उपकरणों में प्रवेश:</strong> 1980 के दशक में IFB ने वाशिंग मशीन और अन्य घरेलू उपकरणों के क्षेत्र में कदम रखा।</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section-card">
+            <h2 class="section-title">2. उत्पाद श्रेणियाँ</h2>
+            <p style="margin-bottom: 12px; color: var(--text-muted);">IFB मुख्य रूप से निम्नलिखित उत्पादों के लिए जाना जाता है:</p>
+            <ul>
+                <li><strong>वाशिंग मशीन:</strong> फ्रंट लोड और टॉप लोड, सेमी-ऑटोमैटिक और फुली ऑटोमैटिक।</li>
+                <li><strong>क्लोथ ड्रायर:</strong> वाशिंग मशीन के साथ या अलग।</li>
+                <li><strong>डिशवॉशर:</strong> घरेलू और व्यावसायिक उपयोग के लिए।</li>
+                <li><strong>एयर कंडीशनर:</strong> स्प्लिट और इनवर्टर एसी।</li>
+                <li><strong>माइक्रोवेव ओवन:</strong> विभिन्न क्षमताओं और सुविधाओं के साथ।</li>
+                <li><strong>वैक्यूम क्लीनर:</strong> घर और कार के लिए।</li>
+                <li><strong>वॉटर प्यूरीफायर:</strong> आरओ और यूवी टेक्नोलॉजी के साथ।</li>
+            </ul>
+        </div>
+
+        <!-- 📢 AD PLACEMENT 2: IN-CONTENT PROMO BANNER -->
+        <div class="ad-banner-inline">
+            <div>
+                <span class="ad-badge" style="position:static;">Advertisement</span>
+                <h3 style="color: #fff; font-size: 16px; margin-top: 3px;">Upgrade to IFB AI-Powered Washing Machines</h3>
+                <p style="color: var(--text-muted); font-size: 13px;">Smart Diagnostics, Steam Wash & Oxyjet Technology.</p>
+            </div>
+            <a href="#" class="ad-btn">Explore Models</a>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section-card">
+            <h2 class="section-title">3. प्रमुख विशेषताएँ</h2>
+            <ul>
+                <li><strong>उच्च गुणवत्ता:</strong> IFB उत्पादों को टिकाऊ और विश्वसनीय माना जाता है।</li>
+                <li><strong>तकनीकी नवाचार:</strong> कंपनी अपने उत्पादों में एडवांस टेक्नोलॉजी का उपयोग करती है, जैसे कि इनवर्टर टेक्नोलॉजी, स्टीम वॉश, और एका इनर्जी।</li>
+                <li><strong>ऊर्जा दक्षता:</strong> IFB उत्पाद ऊर्जा बचाने वाले (Energy Star Rated) होते हैं।</li>
+                <li><strong>उपयोगकर्ता अनुकूल:</strong> उत्पादों को डिजाइन करते समय उपयोगकर्ता की सुविधा को ध्यान में रखा जाता है।</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section-card">
+            <h2 class="section-title">4. बाजार में स्थिति</h2>
+            <ul>
+                <li><strong>भारतीय बाजार:</strong> IFB भारत में घरेलू उपकरणों के बाजार में एक प्रमुख खिलाड़ी है और इसकी विशेष रूप से वाशिंग मशीन और डिशवॉशर में मजबूत पकड़ है।</li>
+                <li><strong>अंतर्राष्ट्रीय उपस्थिति:</strong> IFB ने अपने उत्पादों को कई अन्य देशों में भी लॉन्च किया है।</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 5 & 6 GRID -->
+        <div class="section-card">
+            <h2 class="section-title">5. ग्राहक सेवा और वारंटी</h2>
+            <ul>
+                <li><strong>वारंटी:</strong> IFB अपने उत्पादों पर लंबी अवधि की वारंटी प्रदान करता है।</li>
+                <li><strong>सर्विस नेटवर्क:</strong> कंपनी का व्यापक सर्विस नेटवर्क है, जो ग्राहकों को त्वरित और कुशल सेवा प्रदान करता है।</li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title">6. पुरस्कार और उपलब्धियाँ</h2>
+            <ul>
+                <li>IFB को कई राष्ट्रीय और अंतर्राष्ट्रीय पुरस्कारों से सम्मानित किया गया है, जिसमें उत्पादों की गुणवत्ता और नवाचार के लिए पुरस्कार शामिल हैं।</li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title">7. IFB की मुख्य ताकत</h2>
+            <ul>
+                <li><strong>ब्रांड विश्वसनीयता:</strong> IFB एक विश्वसनीय और प्रतिष्ठित ब्रांड है।</li>
+                <li><strong>तकनीकी विशेषज्ञता:</strong> कंपनी की इंजीनियरिंग और तकनीकी क्षमताएँ मजबूत हैं।</li>
+                <li><strong>ग्राहक केंद्रित दृष्टिकोण:</strong> उत्पादों को ग्राहकों की आवश्यकताओं के अनुसार डिजाइन किया जाता है।</li>
+            </ul>
+        </div>
+
+        <footer>
+            © IFB Industries Ltd. All Rights Reserved. Designed with Royal Elegance.
+        </footer>
+
+    </div>
+
+</body>
+</html>
