@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read SAP</title>
+    <!-- on 11.11.2026  11:18-->
+</head>
+<body>
+	<style>input#searchInput{width:97%; margin:5px; padding:5px;}</style>
+	<style>body{background: linear-gradient(90deg,rgba(207, 62, 14, 0.2) 0%, rgba(20, 9, 121, 0.2) 50%, rgba(27, 194, 194, 0.2) 100%);}</style>
+	<style>body{background: linear-gradient(0deg,rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);}</style>
+	<style>body{background: radial-gradient(circle,rgba(209, 10, 93, 0.67) 0%, rgba(148, 187, 233, 1) 100%);}</style>
+	<style>body{background: none;}</style>
+	<style>body{background-color: skyblue;}</style>
+	 
+	 <style>#productGrid{max-height:90vh; overflow:auto;}</style>
+	    <style>
+        /* 1. Table ke outer container ko scrollable banayein */
+        #productGrid {
+            0overflow-y: auto;   /* Sirf vertical scrollbar dikhega */
+            border: 1px solid #ccc; width: 100%;
+        }
+
+        #productGrid table {
+            width: 100%; border-collapse: collapse; /* Borders ko clean rakhne ke liye */
+        }
+
+        th, td {
+            padding: 3px 7px;	border: 1px solid #ddd;	text-align: left;
+        }
+
+        /* 🌟 2. HEADER KO FIX KARNE KA MAIN CSS LOGIC 🌟 */
+        th {
+            position: sticky;
+            top: 0;               /* Top par chipak jayega */
+            background-color: #333; /* Background color zaroori hai, varna rows piche se dikhengi */
+            color: white;
+            z-index: 1;           /* Baki data rows ke upar dikhne ke liye */
+        }
+		
+		/* Table ki saari EVEN (2, 4, 6...) rows ka background badalne ke liye */
+		tr:nth-child(even) {
+			background-color: #f2f2f2; /* Light Grey Color */
+		}
+
+		/* Table ki saari ODD (1, 3, 5...) rows ka background badalne ke liye (Optional) */
+		tr:nth-child(odd) {
+			background-color: #ffffff; /* White Color */
+		}		
+    </style>
+	 
+
+    Dynamic combine and manage files
+    <button onclick="showData()">show table</button>
+	&nbsp; &nbsp; &nbsp; 
+	<!-- =================================  -->	
+	<div class="btn-container" style="display:inline-block;">
+        <button class="font-btn" onclick="FONTS.changeFontSize(1)">A+ </button>
+        <button class="font-btn" onclick="FONTS.changeFontSize(-1)">A- </button>
+        <button class="font-btn" onclick="FONTS.resetFontSize()">Reset</button>
+    </div>
+	
+	<button onclick="clearSearch()">clear</button>
+	<input type="text" id="searchInput" onkeyup="show_filtered_products()" placeholder="🔍 Search...">
+	<div id="message"></div> 
+	<div id="productGrid"></div>
+
+
+
+		<script src="https://nkg26.github.io/ifb/res/sapcodes/cls-MyIFB.js"></script>	
+		<script src="https://nkg26.github.io/ifb/MyIFB_ABC.js"></script>	
+		<script src="https://nkg26.github.io/libs/js/cls-FX_MyPList.js"></script>	
+		<script src="https://nkg26.github.io/libs/js/cls-IO.js"></script>	
+		
+		
+		<script src="https://nkg26.github.io/ifb/cls-IFB.js"></script>	
+		<script src="https://nkg26.github.io/libs/js/cls-MyFile.js"></script>	
+		<script src="https://nkg26.github.io/libs/js/cls-MyTable.js"></script>	
+		<script src="https://nkg26.github.io/libs/js/cls-MyFontSize.js"></script>	
+		<script src="https://nkg26.github.io/libs/js/cls-PlainTable.js"></script>	
+	
+		<script>
+		const FONTS = new MyFontSize();	 FONTS.id = 'productGrid';
+		const uniq = '?rnd='+Math.floor(Math.random()*10000);
+		const MY_TABLE = new PlainTable();
+		const PFX = new FX_MyPList();
+		const TAB = new MyTable();
+		const IFB1 = new MyIFB();
+		const SAP = {}; // output container...
+		const SRC = [
+			{uid:"codes",    reload:'n', mergeData:'n', key:"CODE-NE", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-NE.txt"},
+			{uid:"names",   reload:'y', mergeData:'y', key:"SAP-NAME", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-NAMES-REF.txt"},
+			{uid:"names",   reload:'y', mergeData:'y', key:"SAP-NAME", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-NAMES-AC.txt"},
+			{uid:"names",   reload:'y', mergeData:'y', key:"SAP-NAME", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-NAMES-OTH.txt"},
+			{uid:"mrpdp",   reload:'y', mergeData:'y', key:"SAP-MRP-DP", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP-REF.txt"},
+			{uid:"mrpdp",   reload:'y', mergeData:'y', key:"SAP-MRP-DP", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-MRP-DP.txt"},
+			{uid:"channel", reload:'y', mergeData:'y', key:"SAP-CHANNEL", path:"https://nkg26.github.io/ifb/res/sapcodes/SAP-CODES-Channels.txt"}
+		];
+		
+	// final plist data...
+	function getPListData(){
+		return SAP.codes;
+	}
+		
+	function toPlist(DATA){
+		let tab = TAB.splitToTable(DATA);
+		IFB1.updateTableHeader(tab);
+		return PFX.toPList(tab);
+	}
+		
+	function mergeSapData(MAIN, ADD){
+		if(MAIN && ADD && MAIN.length >0 && ADD.length>0){
+			PFX.mergeLists(MAIN, ADD,"sapcode");
+			return true;
+		}
+		return false;
+	}
+	
+	function showData(){
+		MY_TABLE.table_data = PFX.toTablularData(getPListData());
+		show_filtered_products();
+	}
+	
+	function showHtml(html){
+		document.getElementById("productGrid").innerHTML = html;
+	}
+	
+	function loadFile(PPP){
+		let myfile = new MyFile(PPP.path+uniq);
+		myfile.loadFile().then(() => {
+			handleText(PPP, myfile.getFinalOutput());
+		});
+	}
+	
+	
+	
+	function handleText(PP, DATA){
+		const OBJ = SAP;
+		const VAR = PP.uid;
+		
+		// initialize value
+		if(OBJ[VAR] === undefined ||  OBJ[VAR] === null)  OBJ[VAR]=[];
+		
+		let newPList = toPlist(DATA);
+		
+		// we will merge columns...
+		if(PP.uid === "mrpdp"){
+			PFX.addMergedKeys(newPList,"mrp-dp-mop-2611",["mrp","dp","mop"]);
+			PFX.delKeys(newPList,["mrp","dp","mop"]);
+		}
+		
+		// append data 
+		OBJ[VAR] = OBJ[VAR].concat(newPList);
+				
+		if(PP.mergeData === 'y') mergeSapData(getPListData(), OBJ[VAR]);
+		if(PP.reload === 'y') 	showData();
+	}
+	function start(){ for(let i=0; i<SRC.length; i++)	loadFile(SRC[i]);}
+	setTimeout(start,10);
+
+
+
+
+	function clearSearch(){
+		document.getElementById('searchInput').value='';
+		show_filtered_products();
+		
+	}
+	function show_filtered_products(){ 
+		var val = document.getElementById('searchInput').value;
+		let data = MY_TABLE.filterByText(val);
+		showFinalData(data);
+	}
+	
+	function showFinalData(table_data){
+		var html = MY_TABLE.FX_TABLE.generateBasicHtmlTable(table_data);
+		document.getElementById('productGrid').innerHTML = html;
+	}
+  
+  </script>
+	  
+</body></html>
