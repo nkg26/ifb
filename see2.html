@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Read</title>
+</head>
+
+<body>
+	<style>input#searchInput{width:97%; margin:5px; padding:5px;}</style>
+	<style>body{background: linear-gradient(90deg,rgba(207, 62, 14, 0.2) 0%, rgba(20, 9, 121, 0.2) 50%, rgba(27, 194, 194, 0.2) 100%);}</style>
+	<style>body{background: linear-gradient(0deg,rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);}</style>
+	<style>body{background: radial-gradient(circle,rgba(209, 10, 93, 0.67) 0%, rgba(148, 187, 233, 1) 100%);}</style>
+	<style>body{background: none;}</style>
+	<style>body{background-color: skyblue;}</style>
+	 
+	 <style>
+        #productGrid {
+            0overflow-y: auto;   /* Sirf vertical scrollbar dikhega */
+            border: 1px solid #ccc; width: 100%;
+        }
+
+        #productGrid table {
+            width: 100%; border-collapse: collapse; /* Borders ko clean rakhne ke liye */
+        }
+
+        th, td {
+            padding: 3px 7px;	border: 1px solid #ddd;	text-align: left;
+        }
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2; /* Light Grey Color */
+		}
+
+		tr:nth-child(odd) {
+			background-color: #ffffff; /* White Color */
+		}		
+		
+
+		</style>
+	<script src="https://nkg26.github.io/libs/js/cls-MyFontSize.js"></script>	
+	 
+	<style>#div_output{max-height:90vh; overflow:auto; border: 1px solid #ccc; width: 100%; border-radius:8px;}</style>
+	<style>#div_output table {width: 100%; border-collapse: collapse;}</style>
+	<style>#div_output th { position: sticky; top: 0; background-color: #555; color: white; z-index: 1; }</style>
+	<style>.highlight {background-color: pink;}</style>
+	<style>#div_custom, #div_zoom {display:inline-block;}</style>
+
+	<div id="div_custom"></div>
+	<div id="div_zoom">
+        <button class="font-btn" onclick="FONTS.changeFontSize(1)">A+ </button>
+        <button class="font-btn" onclick="FONTS.changeFontSize(-1)">A- </button>
+        <button class="font-btn" onclick="FONTS.resetFontSize()">Reset</button>
+		<script>	const FONTS = new MyFontSize();	 FONTS.id = 'div_output';</script>
+    </div>
+	
+	<div id="div_search"> 
+		<style>#div_search{border:1px solid gray; margin:5px; }</style>
+		<style>#searchInput{border:none; background-color:transparent; }</style>
+		<style>#clrBtn{ border:1px solid red; color:red; background-color:pink; margin-left:5px; border-radius:8px; padding:3px; }</style>
+		<button id="clrBtn">clear</button>
+		<input id="searchInput" type="text" placeholder="🔍 Search...">
+		<script>
+			const btnClear = document.getElementById("clrBtn");
+			const srchF = document.getElementById("searchInput");
+			
+			function getSearchText(){
+				return srchF.value;
+			}
+			
+			function showClrBtn(){
+				let empty = srchF.value.length===0;
+				btnClear.style.display = empty?'none':'';
+				srchF.style.width = empty?'':'90%';
+			}
+			function srchFun(){
+				showClrBtn();
+				try{
+					showFilteredData();
+				}catch(e){
+					console.log(' make sure "function showFilteredData()" is implemented...')
+				}
+			}
+			
+			btnClear.addEventListener("click", () => {srchF.value = ''; srchFun();});
+			showClrBtn();
+			srchF.addEventListener("keyup", srchFun);
+		</script>
+	</div>
+	
+	<div id="div_control_panel">
+		<style>#dcp_btn{ border:1px solid red; background-color:transparent; color:blue; padding-right:3px; }</style>
+		<style>#dcp_div{ display:inline-block; }</style>
+		<button id="dcp_btn">>></button>
+		<div id="dcp_div">fjsldkjflsdjfl</div>
+		<script>
+			const dcp_main = document.getElementById("div_control_panel");
+			const dcp_btn = document.getElementById("dcp_btn");
+			const dcp_pan = document.getElementById("dcp_div");
+			function dcp_showPan(){
+				let a = dcp_pan.style.display;
+				dcp_pan.style.display = a==='none'?'':'none';
+				dcp_btn.innerHTML = a==='none'?'Hide':'Show';
+				dcp_main.style.backgroundColor = a==='none'?'pink':'transparent';
+			}
+			dcp_btn.addEventListener("click", dcp_showPan);
+			dcp_showPan();
+		</script>
+	</div> 
+	<div id="div_message"></div> 
+	<div id="div_output"><div id="productGrid"></div></div>
+	
+	<!--  upar wali default search panel hai..  -->
+	
+		
+	<script src="https://nkg26.github.io/libs/js/cls-FX_MyPList.js"></script>	
+	<script src="https://nkg26.github.io/ifb/res/sapcodes/cls-MyIFB.js"></script>	
+	<script src="https://nkg26.github.io/libs/js/cls-IO.js"></script>	
+	<script src="https://nkg26.github.io/libs/js/cls-MyTable.js"></script>	
+	<script src="https://nkg26.github.io/libs/js/cls-PlainTable.js"></script>	
+	
+	
+	<script src="https://nkg26.github.io/ifb/res/js/cls-IFB.js"></script>	
+	
+	
+	<script>
+	// generate dynamic dropdown content...
+	genDynamicDropdown();
+	
+	
+	function genDynamicDropdown(){
+		document.getElementById("div_custom").innerHTML = '<select id="pageDropdown"></select><button onclick="goToPage()">Go</button>';
+	
+		let select = document.getElementById("pageDropdown");
+		if(select){
+				const ifb = new IFB();
+				
+				let TAB = [
+						
+				        ["", "--------------------------------------------------"],
+				        [ifb.ROOT + ifb.path_features_wm_tl, "Features - WM - TL"],
+				        [ifb.ROOT + ifb.path_features_wm_fl, "Features - WM - FL"],
+				        [ifb.ROOT + ifb.path_features_ref, "Features - REF"],
+				        [ifb.ROOT + ifb.path_features_ac, "Features - AC"],
+				        [ifb.ROOT + ifb.path_features_mov, "Features - Microwave"],
+				        [ifb.ROOT + ifb.path_features_dw, "Features - Dishwasher"],
+				        [ifb.ROOT + ifb.path_features_cd, "Features - CD"],
+				        [ifb.ROOT + ifb.path_features_ka, "Features - KA"],
+
+				        ["", "--------------------------------------------------"],
+				        [ifb.ROOT + ifb.path_dp_ALL, "DP - ALL"],
+				        [ifb.ROOT + ifb.path_dp_wm_tl, "DP - WM - TL"],
+				        [ifb.ROOT + ifb.path_dp_wm_fl, "DP - WM - FL"],
+				        [ifb.ROOT + ifb.path_dp_ref, "DP - REF"],
+				        [ifb.ROOT + ifb.path_dp_ac, "DP - AC"],
+				        [ifb.ROOT + ifb.path_dp_mov, "DP - Microwave"],
+				        [ifb.ROOT + ifb.path_dp_dw, "DP - Dishwasher"],
+				        [ifb.ROOT + ifb.path_dp_cd, "DP - CD"],
+				        [ifb.ROOT + ifb.path_dp_ka, "DP - KA"],
+				        ["", "--------------------------------------------------"],
+
+//						["https://nkg26.github.io/NE/res/ifb/features-wm-fl.tmp", "Features - WM - FL--2"],
+//						["https://nkg26.github.io/NE/res/ifb/features-wm-tl.tmp", "Features - WM - TL -- 2"]
+				];
+				let content='';
+				for(let i=0;i<TAB.length;i++)
+					try{content += `<option value="${TAB[i][0]}"> ${TAB[i][1]}</option>`;}catch{}
+				
+				select.innerHTML = content;
+		}
+	}
+	
+	function goToPage() {
+			// this will auto append random id to fetch latest data..
+			
+            const dropdown = document.getElementById("pageDropdown");
+            const selectedValue = dropdown.value;
+            if (selectedValue) {
+				new IO().readAndCallback(selectedValue, showNewDynamicData);
+            } else {
+                alert("Please select a valid option first!");
+            }
+        }
+		function showNewDynamicData(data){
+			try{ loadFreshData(data);} catch(e){alert('error in loading file..');}
+			
+		}
+	</script>
+	
+	
+	
+	
+	
+	
+	
+
+	<script>
+		
+		const PROP = {}; // property
+		const DP_KEY = 'dp'; // DP
+		let RAW = `
+
+SAP Code	Model Name	Category	TTL Vol	Star	MRP	DP	Old DP	DP Increase
+8903287712852	Metal-Cool IFBDC-213AFSS	DC	187	1	₹ 18700	₹ 15700	₹ 15700	₹ 0
+8903287712869	Metal-Cool IFBDC-213AFCS	DC	187	1	₹ 18700	₹ 15700	₹ 15700	₹ 0
+8903287712876	Metal-Cool IFBDC-213AFAS	DC	187	1	₹ 18400	₹ 15400	₹ 15400	₹ 0`;
+
+	const MY_TABLE = new PlainTable();
+	const PFX = new FX_MyPList();
+	loadFreshData(RAW);
+	
+	// calculate BP form DP
+	function applyCalculation_PList(plist, KEY){
+		// apply calculations
+		for(let i=0; i<plist.length; i++){
+			if(plist[i][KEY]){
+				let num = parseInt(plist[i][KEY].replace('₹',''), 10); // 10 का मतलब Decimal नंबर सिस्टम है, remove char '₹'
+				plist[i][KEY] = num+'<span style="font-size:0.5em;">'+" -18% = </span>"+(num + Math.trunc(num*.18));
+			}
+		}
+	}
+		
+	function generateSub_PList(plist){
+		return plist;
+	}
+	
+	
+	function loadFreshData(RAW_TABULAR_DATA){
+		// convert raw data into table format
+		let DATA = new MyTable().splitToTable(RAW_TABULAR_DATA.trim());
+		new MyIFB().updateTableHeader(DATA); // updating table headers
+		
+		// update calculations
+		let plist = PFX.toPList(DATA);
+		PROP['main-pList'] = plist;
+		PROP['all-cols'] = PFX.getUniqueKeys(plist);
+		PROP['all-pCols'] = convertArrayToPList(PROP['all-cols'], 'col-name');
+		PROP['all-pCols'].forEach(item => {item.selected=true;}); // insert attribute selected=true in each p.
+		
+		applyCalculation_PList(plist, DP_KEY);
+		
+		plist = generateSub_PList(plist);
+		
+		PROP['showable-pList'] = plist; // these are the final objects which will be shown as table..
+		updateColumnFilterPan(); // generate checkbox to show selected table column.
+		
+		generateShowableTable();
+		show_filtered_products();
+	}
+	
+	// show all columns as check box.
+	function updateColumnFilterPan(){
+		let html = '';
+		let A = PROP['all-pCols'];
+		for(let i=0; i<A.length; i++){
+			html += '<label><input type="checkbox" id="'+A[i]['col-name']+'" '+(A[i]['selected']===true?'checked':'')+' onchange=reshowTable(this)> '+A[i]['col-name']+'</label>';
+		}
+		document.getElementById('dcp_div').innerHTML = html;
+	}
+	
+	function reshowTable(obj){
+		PROP['all-pCols'].forEach(item => {if(item['col-name']===obj.id){item.selected = obj.checked;}}); // insert attribute selected=true in each p.
+		generateShowableTable();
+		show_filtered_products();
+	}
+
+	function generateShowableTable(){
+		let pCols = PROP['all-pCols'].filter(item => item['selected']===true); // retrive p objects which are selected..
+		let colNames = extarctValueAsArrayFromPList(pCols, 'col-name');		
+		MY_TABLE.table_data = PFX.toTablularData(PROP['showable-pList'], colNames);
+	}
+	
+	function convertArrayToPList(array, propName){
+		let out = [];
+		if(array)
+		for(let i=0; i<array.length;i++){
+			out.push({[propName]:array[i]});
+		}		
+		return out;
+	}
+	
+	function extarctValueAsArrayFromPList(pList, propName){
+		let out = [];
+		for(let i=0; i<pList.length;i++){
+			out.push(pList[i][propName]);
+		}		
+		return out;
+	}
+	
+	function removeValuesInArray(array, removeNames){
+		if(array && removeNames){
+			for(let i=0; i<removeNames.length; i++){
+				array = removeValueFromArray(array,removeNames[i]);
+			}
+		}
+		return array;
+	}
+		
+	function removeValueFromArray(array, removeName){
+		return array.filter(item => item !== removeName); // remove column 'removeName'
+	}
+		
+	function showData(){
+		show_filtered_products();
+	}
+	
+	function showHtml(html){
+		document.getElementById("productGrid").innerHTML = html;
+	}
+	
+	function showFilteredData(){ show_filtered_products(); }
+	
+	function show_filtered_products(){ 
+		var val = document.getElementById('searchInput').value;
+		let data = MY_TABLE.filterByText(val);
+		showFinalData(data);
+	}
+		
+	function showFinalData(table_data){
+		let html = "";
+		try {
+			if(table_data){
+				html = MY_TABLE.FX_TABLE.generateHighlightedHtmlTable(table_data, getSearchText());
+			}
+		} catch(e){html = e;}
+			
+		document.getElementById('productGrid').innerHTML = html;
+	}
+  
+  </script>
+	  
+</body></html>
