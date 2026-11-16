@@ -1,6 +1,12 @@
 class IFB_IMG{
   ROOT = "https://nkg26.github.io/ifb";
   
+  // p/map  object type..
+  getImgPathByP(P){
+    let sapcode = P['sapcode'];
+    retrun sapcode ? (ROOT+"res/img/wm/"+sapcode+".webp"):null;
+  }
+
   getImgPathByName(name){
     retrun null;
   }
