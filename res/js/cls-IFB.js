@@ -3,26 +3,29 @@ class IFB{
   
   ROOT = "https://nkg26.github.io/ifb";
   pathList = [
-      {  type:"Features", keyName:"wm_tl", relativePath:"/res/features/features-wm-tl.txt"},
-      {  type:"Features", keyName:"wm_fl", relativePath:"/res/features/features-wm-fl.txt"},
-      {  type:"Features", keyName:"ac", relativePath:"/res/features/features-ac.txt"},
-      {  type:"Features", keyName:"ref", relativePath:"/res/features/features-ref.txt"},
-      {  type:"Features", keyName:"mov", relativePath:"/res/features/features-mov.txt"},
-      {  type:"Features", keyName:"dw", relativePath:"/res/features/features-dw.txt"},
-      {  type:"Features", keyName:"cd", relativePath:"/res/features/features-cd.txt"}, 
-      {  type:"Features", keyName:"ka", relativePath:"/res/features/features-ka.txt"},
+      { type:"Features", keyName:"wm_tl", rPath:"/res/features/features-wm-tl.txt"},
+      { type:"Features", keyName:"wm_fl", rPath:"/res/features/features-wm-fl.txt"},
+      { type:"Features", keyName:"ac", rPath:"/res/features/features-ac.txt"},
+      { type:"Features", keyName:"ref", rPath:"/res/features/features-ref.txt"},
+      { type:"Features", keyName:"mov", rPath:"/res/features/features-mov.txt"},
+      { type:"Features", keyName:"dw", rPath:"/res/features/features-dw.txt"},
+      { type:"Features", keyName:"cd", rPath:"/res/features/features-cd.txt"}, 
+      { type:"Features", keyName:"ka", rPath:"/res/features/features-ka.txt"},
 
 
-      {  type:"dp", keyName:"ALL", relativePath:"/res/dp/DP_ALL.txt"},
-      {  type:"dp", keyName:"wm_tl", relativePath:"/res/dp/dp-wm-tl.txt"},
-      {  type:"dp", keyName:"wm_fl", relativePath:"/res/dp/dp-wm-fl.txt"},
-      {  type:"dp", keyName:"ac", relativePath:"/res/dp/dp-ac.txt"},
-      {  type:"dp", keyName:"ref", relativePath:"/res/dp/dp-ref.txt"},
-      {  type:"dp", keyName:"mov", relativePath:"/res/dp/dp-mov.txt"},
-      {  type:"dp", keyName:"dw", relativePath:"/res/dp/dp-dw.txt"},
-      {  type:"dp", keyName:"cd", relativePath:"/res/dp/dp-cd.txt"},
-      {  type:"dp", keyName:"ka", relativePath:"/res/dp/dp-ka.txt"}
+      { type:"dp", keyName:"ALL", rPath:"/res/dp/DP_ALL.txt"},
+      { type:"dp", keyName:"wm_tl", rPath:"/res/dp/dp-wm-tl.txt"},
+      { type:"dp", keyName:"wm_fl", rPath:"/res/dp/dp-wm-fl.txt"},
+      { type:"dp", keyName:"ac", rPath:"/res/dp/dp-ac.txt"},
+      { type:"dp", keyName:"ref", rPath:"/res/dp/dp-ref.txt"},
+      { type:"dp", keyName:"mov", rPath:"/res/dp/dp-mov.txt"},
+      { type:"dp", keyName:"dw", rPath:"/res/dp/dp-dw.txt"},
+      { type:"dp", keyName:"cd", rPath:"/res/dp/dp-cd.txt"},
+      { type:"dp", keyName:"ka", rPath:"/res/dp/dp-ka.txt"},
    
+      { type:"dp", rPath:"/res/sapcodes/SAP-CODES-MRP-DP-2611.txt", dt:261100, has:"ALL"},
+      { type:"dp", rPath:"/res/sapcodes/SAP-CODES-MRP-DP.txt", dt:261100, has:"ALL"},
+      { type:"dp", rPath:"/res/sapcodes/SAP-CODES-MRP-DP-REF.txt",	dt:261100, has:"ALL,REF"},
     ];
 
 
@@ -51,9 +54,39 @@ class IFB{
   path_dp_ka    = "/res/dp/dp-ka.txt";
   path_list_dp_all = [this.path_dp_wm_tl, this.path_dp_wm_fl, this.path_dp_ref, this.path_dp_ac, this.path_dp_mov, this.path_dp_dw, this.path_dp_cd, this.path_dp_ka];
 
-  fullPath(relativePath){
-    return this.ROOT + relativePath;
+  fullPath(rPath){
+    return this.ROOT + rPath;
   }
+
+
+  
+  normalizeKey(KEY){
+    let S = KEY.toLowerCase().replaceAll("  "," ");
+    S = S.trim();
+    if(S.includes("SAP Code".toLowerCase()))return "sapcode";
+    if(S.includes("Model Name".toLowerCase()))return "name";
+    if(S.includes("Description".toLowerCase()))return "name"; // ref
+    if(S.includes("Finish Name".toLowerCase()))return "color"; // ref
+    if(S.includes("Color / Finish".toLowerCase()))return "color";
+    if(S.includes("MRP".toLowerCase()))return "mrp";
+    if(S.includes("DP".toLowerCase()))return "dp"; 
+    if(S.includes("BP".toLowerCase()))return "bp"; // billing price
+    if(S.includes("MOP".toLowerCase()))return "mop";
+    if(S.includes("Cap".toLowerCase()))return "capacity";
+    if(S.includes("Capacity".toLowerCase()))return "capacity";
+
+    return KEY; 
+  }  
+
+  // ifbImgObj  name se globally koi object exist hona chaheye..
+  getImagePathByP(P){
+    try{
+      // agar class IFB_IMG  ka object exist karta hai to...
+      return ifbImgObj.getImgPathByP(P);
+    }catch(e){ console.log(" -- ifbImgObj   naam se globally object exist hona chaheye...");}
+    return null;
+  }
+
 }
 
 
