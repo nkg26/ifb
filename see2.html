@@ -121,8 +121,7 @@
 	<script src="https://nkg26.github.io/libs/js/cls-PlainTable.js"></script>	
 	
 	
-	<script src="https://nkg26.github.io/ifb/res/js/cls-IFB.js"></script>	
-	
+	<script src="https://nkg26.github.io/ifb/res/js/cls-IFB.js"></script>		
 	
 	<script>
 	// generate dynamic dropdown content...
@@ -134,41 +133,26 @@
 	
 		let select = document.getElementById("pageDropdown");
 		if(select){
-				const ifb = new IFB();
-				
-				let TAB = [
-				        [ifb.ROOT + '/res/txt/price_inc_ref_nov26.txt', "Price Inc NOV 26 - REF"],
-						
-				        ["", "--------------------------------------------------"],
-				        [ifb.ROOT + ifb.path_features_wm_tl, "Features - WM - TL"],
-				        [ifb.ROOT + ifb.path_features_wm_fl, "Features - WM - FL"],
-				        [ifb.ROOT + ifb.path_features_ref, "Features - REF"],
-				        [ifb.ROOT + ifb.path_features_ac, "Features - AC"],
-				        [ifb.ROOT + ifb.path_features_mov, "Features - Microwave"],
-				        [ifb.ROOT + ifb.path_features_dw, "Features - Dishwasher"],
-				        [ifb.ROOT + ifb.path_features_cd, "Features - CD"],
-				        [ifb.ROOT + ifb.path_features_ka, "Features - KA"],
+			const ifb = new IFB();
 
-				        ["", "--------------------------------------------------"],
-				        [ifb.ROOT + ifb.path_dp_ALL, "DP - ALL"],
-				        [ifb.ROOT + ifb.path_dp_wm_tl, "DP - WM - TL"],
-				        [ifb.ROOT + ifb.path_dp_wm_fl, "DP - WM - FL"],
-				        [ifb.ROOT + ifb.path_dp_ref, "DP - REF"],
-				        [ifb.ROOT + ifb.path_dp_ac, "DP - AC"],
-				        [ifb.ROOT + ifb.path_dp_mov, "DP - Microwave"],
-				        [ifb.ROOT + ifb.path_dp_dw, "DP - Dishwasher"],
-				        [ifb.ROOT + ifb.path_dp_cd, "DP - CD"],
-				        [ifb.ROOT + ifb.path_dp_ka, "DP - KA"],
-				        ["", "--------------------------------------------------"],
-
-//						["https://nkg26.github.io/NE/res/ifb/features-wm-fl.tmp", "Features - WM - FL--2"],
-//						["https://nkg26.github.io/NE/res/ifb/features-wm-tl.tmp", "Features - WM - TL -- 2"]
-				];
-				let content='';
-				for(let i=0;i<TAB.length;i++)
-					try{content += `<option value="${TAB[i][0]}"> ${TAB[i][1]}</option>`;}catch{}
-				
-				select.innerHTML = content;
+			let pList = ifb.pathList;
+			const FXP = new FX_MyPList();
+			
+			let plist1 = FXP.filterByValue_LC(pList, 'type', 'features');
+			let plist2 = FXP.filterByValue_LC(pList, 'type', 'dp');
+			
+			let t1 = [];
+			plist1.forEach(item =>{ let a=item.rPath.split('/');  a=a[a.length-1]; a=a.split('.'); a=a[0].toUpperCase(); t1.push([ifb.ROOT + item.rPath, a]);});				
+			t1.push(["", "--------------------------------------------------"]);
+			plist2.forEach(item =>{ let a=item.rPath.split('/');  a=a[a.length-1]; t1.push([ifb.ROOT + item.rPath, a]);});
+			t1.push(["", "--------------------------------------------------"]);
+			let TAB = t1;
+			
+			let content='';
+			for(let i=0;i<TAB.length;i++)
+				try{content += `<option value="${TAB[i][0]}"> ${TAB[i][1]}</option>`;}catch{}
+			
+			select.innerHTML = content;
 		}
 	}
 	
@@ -187,21 +171,10 @@
 			try{ loadFreshData(data);} catch(e){alert('error in loading file..');}
 			
 		}
-	</script>
-	
-	
-	
-	
-	
-	
-	
 
-	<script>
-		
-		const PROP = {}; // property
-		const DP_KEY = 'dp'; // DP
-		let RAW = `
-
+	const PROP = {}; // property
+	const DP_KEY = 'dp'; // DP
+	let RAW = `
 SAP Code	Model Name	Category	TTL Vol	Star	MRP	DP	Old DP	DP Increase
 8903287712852	Metal-Cool IFBDC-213AFSS	DC	187	1	₹ 18700	₹ 15700	₹ 15700	₹ 0
 8903287712869	Metal-Cool IFBDC-213AFCS	DC	187	1	₹ 18700	₹ 15700	₹ 15700	₹ 0
