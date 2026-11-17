@@ -26,10 +26,15 @@ class IFB{
       { type:"dp", rPath:"/res/sapcodes/SAP-CODES-MRP-DP-2611.txt", dt:261100, has:"ALL"},
       { type:"dp", rPath:"/res/sapcodes/SAP-CODES-MRP-DP.txt", dt:261100, has:"ALL"},
       { type:"dp", rPath:"/res/sapcodes/SAP-CODES-MRP-DP-REF.txt",	dt:261100, has:"ALL,REF"},
+
+
+      { type:"tieup", rPath:"/res/txt/tieup-2611-ac.txt", dt:261100, has:"ac"},
+      { type:"tieup", rPath:"/res/txt/tieup-2611-ref.txt", dt:261100, has:"ref"},
+    
     ];
 
 
-  
+  /*
   path_features_wm_tl = "/res/features/features-wm-tl.txt";
   path_features_wm_fl = "/res/features/features-wm-fl.txt";
   path_features_ac    = "/res/features/features-ac.txt";
@@ -38,9 +43,6 @@ class IFB{
   path_features_dw    = "/res/features/features-dw.txt";
   path_features_cd    = "/res/features/features-cd.txt";
   path_features_ka    = "/res/features/features-ka.txt";
-  path_list_features_all = [this.path_features_wm_tl, this.path_features_wm_fl, this.path_features_ref, this.path_features_ac, this.path_features_mov, this.path_features_dw, this.path_features_cd, this.path_features_ka];
-
-
   
 
   path_dp_ALL   = "/res/dp/DP_ALL.txt";
@@ -52,8 +54,8 @@ class IFB{
   path_dp_dw    = "/res/dp/dp-dw.txt";
   path_dp_cd    = "/res/dp/dp-cd.txt";
   path_dp_ka    = "/res/dp/dp-ka.txt";
-  path_list_dp_all = [this.path_dp_wm_tl, this.path_dp_wm_fl, this.path_dp_ref, this.path_dp_ac, this.path_dp_mov, this.path_dp_dw, this.path_dp_cd, this.path_dp_ka];
-
+*/
+  
   fullPath(rPath){
     return this.ROOT + rPath;
   }
