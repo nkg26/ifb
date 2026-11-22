@@ -53,7 +53,7 @@
         <button class="font-btn" onclick="FONTS.resetFontSize()">Reset</button>
 		<script>	const FONTS = new MyFontSize();	 FONTS.id = 'div_output';</script>
     </div>
-	
+	<a id='google-file'> open g-sheet </a>
 	<div>
 	<div id="div_search" class="div_search" btnId="clrBtn" srchId="searchInput" > 
 		<style>div.div_search{border:1px solid red; margin:5px; max-width:45%; width:45%; display:inline-block; background-color:cyan;}</style>
@@ -382,7 +382,9 @@
 		const exp = '/export?format=tsv&gid=';
 		const gid = '0';
 		const url = 'https://docs.google.com/spreadsheets/d/1Vv6L_VvmjOwqh5641-JAIkPouBLEsUUSMPp04g2dFg8/export?format=tsv&gid=0';
-	
+
+		document.getElementById('google-file').href = url;
+		
 		try{
 			const res = await fetch(url);
 			let text = await res.text();
