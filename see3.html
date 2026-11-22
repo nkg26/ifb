@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Read</title>
+</head>
+
+<body>
+	<style>body{background: linear-gradient(90deg,rgba(207, 62, 14, 0.2) 0%, rgba(20, 9, 121, 0.2) 50%, rgba(27, 194, 194, 0.2) 100%);}</style>
+	<style>body{background: linear-gradient(0deg,rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);}</style>
+	<style>body{background: radial-gradient(circle,rgba(209, 10, 93, 0.67) 0%, rgba(148, 187, 233, 1) 100%);}</style>
+	<style>body{background: none;}</style>
+	<style>body{background-color: skyblue;}</style>
+	 
+	 <style>
+        #productGrid {
+            0overflow-y: auto;   /* Sirf vertical scrollbar dikhega */
+            border: 1px solid #ccc; width: 100%;
+        }
+
+        #productGrid table {
+            width: 100%; border-collapse: collapse; /* Borders ko clean rakhne ke liye */
+        }
+
+        th, td {
+            padding: 3px 7px;	border: 1px solid #ddd;	text-align: left;
+        }
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2; /* Light Grey Color */
+		}
+
+		tr:nth-child(odd) {
+			background-color: #ffffff; /* White Color */
+		}		
+		
+
+		</style>
+	<script src="https://nkg26.github.io/libs/js/cls-MyFontSize.js"></script>	
+	 
+	<style>#div_output{max-height:90vh; overflow:auto; border: 1px solid #ccc; width: 100%; border-radius:8px;}</style>
+	<style>#div_output table {width: 100%; border-collapse: collapse;}</style>
+	<style>#div_output th { position: sticky; top: 0; background-color: #555; color: white; z-index: 1; }</style>
+	<style>.highlight {background-color: pink;}</style>
+	<style>#div_custom, #div_zoom {display:inline-block;}</style>
+
+	<div id="div_custom"></div>
+	<div id="div_zoom">
+        <button class="font-btn" onclick="FONTS.changeFontSize(1)">A+ </button>
+        <button class="font-btn" onclick="FONTS.changeFontSize(-1)">A- </button>
+        <button class="font-btn" onclick="FONTS.resetFontSize()">Reset</button>
+		<script>	const FONTS = new MyFontSize();	 FONTS.id = 'div_output';</script>
+    </div>
+	
+	<div>
+	<div id="div_search" class="div_search" btnId="clrBtn" srchId="searchInput" > 
+		<style>div.div_search{border:1px solid red; margin:5px; max-width:45%; width:45%; display:inline-block; background-color:cyan;}</style>
+		<style>div.div_search input{border:none; background-color:transparent; max-width:79%; }</style>
+		<style>div.div_search button{ border:1px solid red; color:red; background-color:pink; border-radius:25px; padding:0px; }</style>
+		<button id="clrBtn"  onclick="go(event)">X</button>
+		<input id="searchInput" onkeyup="go(event)" type="text" placeholder="🔍 Search...">
+		<script>
+			const search_text = {};
+
+			function go(e){
+				const div = event.target.parentNode;
+				let ip = null;
+				let btn = null;
+				
+				if(event.type === 'keyup'){
+					ip = event.target;
+				}else if(event.type === 'click'){
+					ip = document.getElementById(div.getAttribute('srchId'));
+					ip.value = '';
+				}
+				
+				ip = ip ? ip : document.getElementById(div.getAttribute('srchId'));
+				btn = btn ? btn : document.getElementById(div.getAttribute('btnId'));
+								
+				let empty = (ip.value === '');
+				init_search(div.id);
+				searchBoxUpdated();
+			}
+						
+			function init_search(DIV_ID){
+				let div = document.getElementById(DIV_ID);
+				let ip = document.getElementById(div.getAttribute('srchId'));
+				let btn = document.getElementById(div.getAttribute('btnId'));
+				let empty = (ip.value === '');	
+
+				ip.style.width = empty?'100%':'80%';
+				btn.style.display = empty?'none':'';
+				search_text[ip.id] = ip.value;
+			}
+			
+			init_search('div_search');
+						
+		</script>
+	</div>
+
+	<div id="div_search2" class="div_search" btnId="clrBtn2" srchId="searchInput2" > 
+		<button id="clrBtn2" onclick="go(event)" >clear</button>
+		<input id="searchInput2" type="text" placeholder="🔍 Search and mode..." onkeyup="go(event)" >
+		<script>init_search('div_search2');</script>
+	</div>
+	</div>
+	
+	
+	<div id="div_control_panel">
+		<style>#dcp_btn{ border:1px solid red; background-color:transparent; color:blue; padding-right:3px; }</style>
+		<style>#dcp_div{ display:inline-block; }</style>
+		<button id="dcp_btn">>></button>
+		<div id="dcp_div">000</div>
+		<script>
+			const dcp_main = document.getElementById("div_control_panel");
+			const dcp_btn = document.getElementById("dcp_btn");
+			const dcp_pan = document.getElementById("dcp_div");
+			function dcp_showPan(){
+				let a = dcp_pan.style.display;
+				dcp_pan.style.display = a==='none'?'':'none';
+				dcp_btn.innerHTML = a==='none'?'Hide':'Show';
+				dcp_main.style.backgroundColor = a==='none'?'pink':'transparent';
+			}
+			dcp_btn.addEventListener("click", dcp_showPan);
+			dcp_showPan();
+		</script>
+	</div> 
+	<div id="div_message"></div> 
+	<div id="div_output"><div id="productGrid"></div></div>
+	
+	<!--  upar wali default search panel hai..  -->
+	
+		
+	<script src="https://nkg26.github.io/libs/js/cls-FX_MyPList.js"></script>	
+	<script src="https://nkg26.github.io/ifb/res/sapcodes/cls-MyIFB.js"></script>	
+	<script src="https://nkg26.github.io/libs/js/cls-IO.js"></script>	
+	<script src="https://nkg26.github.io/libs/js/cls-MyTable.js"></script>	
+	<script src="https://nkg26.github.io/ifb/res/js/cls-IFB.js"></script>		
+	
+	<script>
+	
+	const FX_TABLE = new MyTable();
+	const PFX = new FX_MyPList();
+	
+	
+	// this is to preserve old-data
+	class MY_DATA{
+		PROP = {}; // property
+		
+		analyzeFreshRawData(RAW_TABULAR_DATA){
+			// convert raw data into table format
+			let DATA = new MyTable().splitToTable(RAW_TABULAR_DATA.trim());
+			new MyIFB().updateTableHeader(DATA); // updating table headers
+			
+			let PROP = this.PROP;
+			// update calculations
+			let plist = PFX.toPList(DATA);
+			PROP['main-pList'] = plist;
+			PROP['all-cols'] = PFX.getUniqueKeys(plist);
+			PROP['all-pCols'] = this.convertArrayToPList(PROP['all-cols'], 'col-name');
+			PROP['all-pCols'].forEach(item => {item.selected=true;}); // insert attribute selected=true in each p.
+			
+			//this.applyCalculation_PList(plist, '');
+			plist = this.generateSub_PList(plist);
+			
+			PROP['showable-pList'] = plist; // these are the final objects which will be shown as table..
+		}
+		
+		// calculate BP form DP
+		applyCalculation_PList(plist, KEY){
+			// apply calculations
+			for(let i=0; i<plist.length; i++){
+				if(plist[i][KEY]){
+					let num = parseInt(plist[i][KEY].replace('₹',''), 10); // 10 का मतलब Decimal नंबर सिस्टम है, remove char '₹'
+					plist[i][KEY] = num+'<span style="font-size:0.5em;">'+" -18% = </span>"+(num + Math.trunc(num*.18));
+				}
+			}
+		}
+			
+		generateSub_PList(plist){
+			return plist;
+		}
+
+		generateShowableTable(){
+			try{
+				let PROP = this.PROP;
+				let pCols = PROP['all-pCols'].filter(item => item['selected']===true); // retrive p objects which are selected..
+				let colNames = this.extarctValueAsArrayFromPList(pCols, 'col-name');		
+				return PFX.toTablularData(PROP['showable-pList'], colNames);
+			}catch{}
+			return '';
+		}
+		
+		/*
+		
+		
+		*/
+	
+		convertArrayToPList(array, propName){
+			let out = [];
+			if(array)
+			for(let i=0; i<array.length;i++){
+				out.push({[propName]:array[i]});
+			}		
+			return out;
+		}
+		
+		extarctValueAsArrayFromPList(pList, propName){
+			let out = [];
+			for(let i=0; i<pList.length;i++){
+				out.push(pList[i][propName]);
+			}		
+			return out;
+		}
+		
+		removeValuesInArray(array, removeNames){
+			if(array && removeNames)
+				for(let i=0; i<removeNames.length; i++)
+					array = this.removeValueFromArray(array,removeNames[i]);
+			return array;
+		}
+			
+		removeValueFromArray(array, removeName){
+			return array.filter(item => item !== removeName); // remove column 'removeName'
+		}
+		
+	}
+
+
+	class Help{
+		ALL_SRC = [];
+		
+		OBJ_MS = null; // master object
+		getObjMS(){ return this.OBJ_MS; }
+		getObjCls(){ return this.getObjMS() ? this.getObjMS().clsObj : null ; }
+		getPROP(){ return this.getObjCls() ? this.getObjCls().PROP : null; }
+		
+		findByUID(value) {
+			return this.findBy('uid', value);
+		}
+		
+		findBy(porpKey, propValue) {
+			return this.findByPList(this.ALL_SRC, porpKey, propValue);
+		}
+		
+		findByPList(pList, porpKey, propValue) {
+			for(let i=0; i<pList.length; i++) if(pList[i][porpKey] === propValue) return pList[i];
+			return null;
+		}
+		
+		// 
+		updateColumnVisiblity(checkbox){
+			let PROP = this.getPROP();
+			PROP['all-pCols'].forEach(item => {if(item['col-name']===checkbox.id){item.selected = checkbox.checked;}}); // insert attribute selected=true in each p.
+			this.table_data = this.getShowableData(); // regenerate new table..
+		}
+		
+		getShowableData(){
+			return this.getObjCls() ? this.getObjCls().generateShowableTable():'';
+		}
+		
+		generateHtml_Dropdown(){
+			let pList = this.ALL_SRC;
+			
+			let html = '';
+			html += '<select id="pageDropdown"  onkeydown="if(event.key === \'Enter\'){ event.preventDefault(); go123();}">';
+			pList.forEach(P =>{ try{html += '<option value="'+P.uid+'">'+P.name+'</option>';}catch{}});				
+			html += '</select> <button onclick="go123()"  >Go</button> &nbsp; ';
+			html += '<button onclick="refetchData()">Re-fetch Data</button> &nbsp; ';
+			
+			return html;
+		}		
+	
+		// show all columns as check box. in html..
+		generateHtml_ColumnFilter(){
+			let PROP = this.getPROP();
+			if(PROP)
+			try {
+				let html = '';
+				let A = PROP['all-pCols'];
+				for(let i=0; i<A.length; i++)
+					html += '<label><input type="checkbox" id="'+A[i]['col-name']+'" '+(A[i]['selected']===true?'checked':'')+' onchange=showColumnUpdated(this)> '+A[i]['col-name']+'</label>';
+				return html;
+			} catch {}
+			return '';
+		}
+				
+		// isme header always return hoga..
+		filterTabularDataByText(tablular_data, filter_text){
+			return (filter_text.includes('&&')) 
+				? this.filterTabularDataByText_multi(tablular_data, filter_text.split('&&'))
+				: this.filterTabularDataByText_simple(tablular_data, filter_text);
+		}
+		
+		filterTabularDataByText_multi(tablular_data, filter_text_list){
+			filter_text_list.forEach(key =>{tablular_data = this.filterTabularDataByText_simple(tablular_data, key);});
+			return tablular_data;
+		}
+		
+		filterTabularDataByText_simple(tablular_data, filter_text){
+			let text = filter_text.toLowerCase();
+			return tablular_data.filter((row, rowIndex) => {
+					if (rowIndex === 0) return true; // header always chaheye..
+					for(let i=0; i<row.length; i++){
+						if((row[i] === null || row[i] === undefined)?false:row[i].toLowerCase().includes(text)) return true;
+					}
+					
+				return false;
+			});	
+		}
+
+		// Table-2D to store current showing table data.. before text filter..
+		table_data = [];
+		
+		asd(masterObject) { console.log("ok--1");}
+
+/////////////		
+		fetchNewData(new_raw_data, masterObject) {
+			try {
+				masterObject.clsObj = new MY_DATA();
+				masterObject.clsObj.analyzeFreshRawData(new_raw_data);
+				
+				let THIS = masterObject['this-obj'];
+				delete masterObject['this-obj'];
+				THIS.autoAnalyseAndShowMS(masterObject);
+			} catch(e){
+				let THIS = masterObject['this-obj'];
+				delete masterObject['this-obj'];
+				THIS.autoAnalyseAndShowMS(null);
+				
+				console.log('<h1 style="color:red;"> Error in loading data : <br/><br/>'+masterObject.name+'</h1>');
+				//console.log(e);
+			}
+		}
+		
+		showDataByUID(uid) { this.showDataByP(this.findByUID(uid)); /*masterObject */ }
+		
+		showDataByP(masterObject) {
+			if (masterObject) {
+				if(masterObject.clsObj){
+					console.log("already exist data shown...");
+					this.autoAnalyseAndShowMS(masterObject);
+				}
+				else {
+					console.log("new data fetch and shown...");
+					masterObject['this-obj']=this; // store temp this class object...					
+					new IO().readAndCallback2(masterObject.url, this.fetchNewData, masterObject);
+				}
+			} else {
+				alert("Please select a valid option first!");
+			}
+		}
+		
+		// this JSON  or P  contains an object of class MY_DATA.
+		autoAnalyseAndShowMS(masterObject) {
+			try{
+				this.OBJ_MS = masterObject;
+				this.table_data = this.getShowableData();
+				document.getElementById('dcp_div').innerHTML = HELP.generateHtml_ColumnFilter();
+				autoShowFinalOutput();
+			}catch(e){
+				console.error(e);
+			}
+		}
+		
+	/////////////		
+
+	}
+	
+	const HELP = new Help();
+
+	start();
+
+	async function getGData(P) {
+	}
+	
+	async function start(){
+		const pre = 'https://docs.google.com/spreadsheets/d/';
+		const fid = '1Vv6L_VvmjOwqh5641-JAIkPouBLEsUUSMPp04g2dFg8';
+		const exp = '/export?format=tsv&gid=';
+		const gid = '0';
+		const url = 'https://docs.google.com/spreadsheets/d/1qibIIN-O89gFzxGIqh8IlUcU3M6UFCsrhUH56BTGt_4/export?format=tsv&gid=0';
+	
+		try{
+			const res = await fetch(url);
+			let text = await res.text();
+			let data2d = FX_TABLE.splitToTable(text);
+			const FXP = new FX_MyPList();
+			let pList = FXP.toPList(data2d);
+			
+			let ind=0; // for update UID
+			pList.forEach(p => {p['uid'] = ++ind+'';});
+			HELP.ALL_SRC = pList;
+			document.getElementById("div_custom").innerHTML = HELP.generateHtml_Dropdown();
+			
+		}catch(e){
+		}
+	
+		showOutputHTML(' we are storing old data into memory so that we can easily analyse data without fetching again and again..');
+	}
+			
+	function refetchData(){ 
+		if(HELP.getObjMS()){
+			delete HELP.getObjMS().clsObj;
+			console.log('old class object deleted...');
+			go123();
+		}
+	}
+	
+	// when go button clicked...
+	function go123() { HELP.showDataByUID(document.getElementById("pageDropdown").value); }
+	
+	
+	// called when we change column selection..
+	function showColumnUpdated(obj){
+		HELP.updateColumnVisiblity(obj);
+		autoShowFinalOutput();
+	}
+
+	function searchBoxUpdated(){ 
+		autoShowFinalOutput(); 
+	}
+
+	function autoShowFinalOutput(highlightText=true){
+		try {
+			let Table2D = HELP.table_data;
+			//Table2D = HELP.filterTabularDataByText(Table2D, document.getElementById('searchInput').value);
+			
+			
+			let KEYS = Object.keys(search_text);
+			
+			KEYS.forEach(K =>{
+				if(search_text[K]){
+					Table2D = HELP.filterTabularDataByText(Table2D, search_text[K]);
+				}else{
+					delete search_text[K];
+				}
+			});
+			
+			
+			let html = 'AA';
+			
+			if(highlightText && KEYS.length ==1)  // yahan 2D table html format me convert hoga + highlight
+				html = FX_TABLE.generateHighlightedHtmlTable(Table2D, search_text[Object.keys(search_text)[0]]); 
+			else 
+				html = FX_TABLE.generateBasicHtmlTable(Table2D); 
+
+			showOutputHTML(html);
+		} catch(e){
+			showOutputHTML(e);
+		}
+	}
+  
+	// final html output.
+	function showOutputHTML(html){
+		document.getElementById('productGrid').innerHTML = html;
+	}
+  
+  </script>
+	  
+</body></html>
