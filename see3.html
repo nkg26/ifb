@@ -383,7 +383,7 @@
 		const gid = '0';
 		const url = 'https://docs.google.com/spreadsheets/d/1Vv6L_VvmjOwqh5641-JAIkPouBLEsUUSMPp04g2dFg8/export?format=tsv&gid=0';
 
-		document.getElementById('google-file').href = url;
+		document.getElementById('google-file').href = pre+fid;
 		
 		try{
 			const res = await fetch(url);
