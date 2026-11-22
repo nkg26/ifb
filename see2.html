@@ -54,11 +54,12 @@
 		<script>	const FONTS = new MyFontSize();	 FONTS.id = 'div_output';</script>
     </div>
 	
+	<div>
 	<div id="div_search" class="div_search" btnId="clrBtn" srchId="searchInput" > 
-		<style>div.div_search{border:1px solid red; margin:5px; }</style>
-		<style>div.div_search input{border:none; background-color:transparent; max-width:99%; }</style>
-		<style>div.div_search button{ border:1px solid red; color:red; background-color:pink; margin-left:5px; border-radius:8px; padding:3px; }</style>
-		<button id="clrBtn"  onclick="go(event)">clear</button>
+		<style>div.div_search{border:1px solid red; margin:5px; max-width:45%; width:45%; display:inline-block; background-color:cyan;}</style>
+		<style>div.div_search input{border:none; background-color:transparent; max-width:79%; }</style>
+		<style>div.div_search button{ border:1px solid red; color:red; background-color:pink; border-radius:25px; padding:0px; }</style>
+		<button id="clrBtn"  onclick="go(event)">X</button>
 		<input id="searchInput" onkeyup="go(event)" type="text" placeholder="🔍 Search...">
 		<script>
 			const search_text = {};
@@ -98,18 +99,14 @@
 						
 		</script>
 	</div>
-	
+
 	<div id="div_search2" class="div_search" btnId="clrBtn2" srchId="searchInput2" > 
 		<button id="clrBtn2" onclick="go(event)" >clear</button>
 		<input id="searchInput2" type="text" placeholder="🔍 Search and mode..." onkeyup="go(event)" >
 		<script>init_search('div_search2');</script>
 	</div>
-	
-	<div id="div_search3" class="div_search" btnId="clrBtn3" srchId="searchInput3" > 
-		<button id="clrBtn3" onclick="go(event)" >clear</button>
-		<input id="searchInput3" type="text" placeholder="🔍 Search and mode..." onkeyup="go(event)" >
-		<script>init_search('div_search3');</script>
 	</div>
+	
 	
 	<div id="div_control_panel">
 		<style>#dcp_btn{ border:1px solid red; background-color:transparent; color:blue; padding-right:3px; }</style>
