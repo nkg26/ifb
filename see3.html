@@ -386,13 +386,29 @@
 		try{
 			const res = await fetch(url);
 			let text = await res.text();
+			console.log('text = ');
+			console.log(text);
+			console.log('____________________________________');
+			
 			let data2d = FX_TABLE.splitToTable(text);
+			console.log('data2d = ');
+			console.log(data2d);
+			console.log('____________________________________');
 			const FXP = new FX_MyPList();
 			let pList = FXP.toPList(data2d);
+			
+			console.log('pList = ');
+			console.log(pList);
+			console.log('____________________________________');
 			
 			let ind=0; // for update UID
 			pList.forEach(p => {p['uid'] = ++ind+'';});
 			HELP.ALL_SRC = pList;
+			
+			console.log('pList 2= ');
+			console.log(pList);
+			console.log('____________________________________');
+			
 			document.getElementById("div_custom").innerHTML = HELP.generateHtml_Dropdown();
 			
 		}catch(e){
